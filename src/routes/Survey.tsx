@@ -4,7 +4,7 @@ import Question from '../components/Question/Question';
 import { QUESTION_LIST } from '../constants/QuestionList';
 import { QuestionType } from '../components/Question/QuestionType';
 
-class Questions extends React.Component<RouteComponentProps<any>> {
+class Survey extends React.Component<RouteComponentProps<any>> {
 
   public render(): React.ReactNode {
     return (
@@ -23,4 +23,4 @@ class Questions extends React.Component<RouteComponentProps<any>> {
   }
 }
 
-export default Questions;
+export default Survey;

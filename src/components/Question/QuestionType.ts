@@ -1,4 +1,4 @@
-import { AnswerType } from './AnswerType';
+import { AnswerType } from '../Answer/AnswerType';
 
 export enum QuestionMode {
   SINGLE_DROP_DOWN,

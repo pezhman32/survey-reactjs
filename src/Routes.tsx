@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './routes/Home';
-import Questions from './routes/Questions';
+import Survey from './routes/Survey';
 
 class Routes extends React.Component {
   public render() {
@@ -9,7 +9,7 @@ class Routes extends React.Component {
       <Router>
         <div>
           <Route exact={true} path="/" component={Home} />
-          <Route path="/questions/:index" component={Questions} />
+          <Route path="/survey/questions/:index" component={Survey} />
         </div>
       </Router>
     );

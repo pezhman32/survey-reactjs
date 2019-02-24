@@ -7,7 +7,7 @@ class Home extends React.Component<RouteComponentProps> {
   public render(): React.ReactNode {
     return (
       <div>
-        <Link to={`${this.props.match.url}questions/1`}>To questions...</Link>
+        <Link to={`${this.props.match.url}survey/questions/1`}>To questions...</Link>
       </div>
     );
   }
