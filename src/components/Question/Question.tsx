@@ -9,8 +9,8 @@ interface QuestionProps {
 }
 
 class Question extends React.Component<QuestionProps> {
-  public render(): React.ReactNode {
 
+  public render(): React.ReactNode {
     return (
       <div>
         <div>Question: {this.props.question.title}</div>
@@ -20,7 +20,6 @@ class Question extends React.Component<QuestionProps> {
   }
 
   private renderAnswer(question: QuestionType): React.ReactNode {
-
     switch (question.mode) {
       case QuestionMode.TEXT:
         return <AnswerText onChange={this.onAnswer}/>;
