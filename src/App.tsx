@@ -31,7 +31,7 @@ interface AppProps {
 
 class App extends React.Component<AppProps> {
   render() {
-    console.log('>>> typeof dispatch', this.props);
+    // console.log('>>> typeof dispatch', this.props);
     this.props.nextQuestion({ currentQuestion: { title: '', mode: QuestionMode.SINGLE_RADIO }, toIndex: 1, type: SurveyActionEnumType.NEXT });
 
     return (

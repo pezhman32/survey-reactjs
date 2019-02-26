@@ -9,8 +9,7 @@ const INITIAL_STATE: SurveyStateType = {
 class SurveyReducer {
 
   public setState(state = INITIAL_STATE, action: SurveyActionType): SurveyStateType {
-    console.log('>>> state', state);
-    console.log('>>> { ...state }', { ...state });
+    console.log('>>> reducer.state', state);
 
     switch (action.type) {
       case SurveyActionEnumType.NEXT:

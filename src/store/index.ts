@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
 
 export type AppState = ReturnType<typeof rootReducer>;
 
-export function configureStore() {
+function configureStore() {
   const middlewares :any = [/*thunk*/]; // TODO do we need thunk?
   const middleWareEnhancer = applyMiddleware(...middlewares);
 
@@ -20,3 +20,5 @@ export function configureStore() {
 
   return store;
 }
+
+export const store = configureStore();
