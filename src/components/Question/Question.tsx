@@ -6,6 +6,7 @@ import AnswerRadio from '../Answer/AnswerRadio';
 
 interface QuestionProps {
   question: QuestionType;
+  onAnswer: (v: string) => void;
 }
 
 class Question extends React.Component<QuestionProps> {
@@ -22,18 +23,14 @@ class Question extends React.Component<QuestionProps> {
   private renderAnswer(question: QuestionType): React.ReactNode {
     switch (question.mode) {
       case QuestionMode.TEXT:
-        return <AnswerText onChange={this.onAnswer}/>;
+        return <AnswerText onChange={this.props.onAnswer}/>;
       case QuestionMode.SINGLE_DROP_DOWN:
-        return <AnswerDropdown options={question.options || []} onChange={this.onAnswer}/>;
+        return <AnswerDropdown options={question.options || []} onChange={this.props.onAnswer}/>;
       case QuestionMode.SINGLE_RADIO:
-        return <AnswerRadio options={question.options || []} onChange={this.onAnswer}/>;
+        return <AnswerRadio options={question.options || []} onChange={this.props.onAnswer}/>;
       default:
         return <span>ERROR!</span>;
     }
-  }
-
-  private onAnswer(value: string): void {
-    console.log('>>> onAnswer.value', value);
   }
 }
 

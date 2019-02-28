@@ -1,4 +1,5 @@
 import { SurveyActionEnumType, SurveyActionType, SurveyStateType } from './types';
+import { QuestionType } from '../../components/Question/QuestionType';
 
 const INITIAL_STATE: SurveyStateType = {
   answeredQuestions: [],
@@ -9,14 +10,24 @@ const INITIAL_STATE: SurveyStateType = {
 class SurveyReducer {
 
   public setState(state = INITIAL_STATE, action: SurveyActionType): SurveyStateType {
-    console.log('>>> reducer.state', state);
+    // Set the answer to right position in the array
+    const answeredQuestions: QuestionType[] = Object.assign([], state.answeredQuestions);
+    answeredQuestions[state.currentIndex - 1] = action.currentQuestion; // Questions start with 1, array index starts with 0
 
     switch (action.type) {
       case SurveyActionEnumType.NEXT:
       case SurveyActionEnumType.PREVIOUS:
-        return { ...state, currentIndex: action.toIndex, finished: false };
+        return {
+          ...state,
+          answeredQuestions,
+          currentIndex: action.toIndex,
+          finished: false,
+        };
       case SurveyActionEnumType.FINISH:
-        return { ...state, finished: true };
+        return {
+          ...state,
+          finished: true,
+        };
     }
 
     return { ...state };

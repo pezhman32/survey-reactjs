@@ -3,12 +3,26 @@ import { RouteComponentProps } from 'react-router';
 import Question from '../components/Question/Question';
 import { QUESTION_LIST } from '../constants/QuestionList';
 import { QuestionType } from '../components/Question/QuestionType';
+import { AppState } from '../store';
+import { SurveyActionEnumType, SurveyStateType } from '../store/survey/types';
+import surveyAction from '../store/survey/SurveyAction';
+import { connect } from 'react-redux';
 
-export default class Survey extends React.Component<RouteComponentProps<any>> {
+interface SurveyProps extends RouteComponentProps<any> {
+  survey: SurveyStateType;
+  nextQuestion: typeof surveyAction.nextQuestion;
+}
 
-  constructor(props: Readonly<RouteComponentProps<any>>) {
+interface SurveyState {
+  answerValue: string;
+}
+
+class Survey extends React.Component<SurveyProps, SurveyState> {
+
+  constructor(props: Readonly<SurveyProps>) {
     super(props);
     this.handleResultClick = this.handleResultClick.bind(this);
+    this.handleAnswer = this.handleAnswer.bind(this);
   }
 
   public render(): React.ReactNode {
@@ -18,7 +32,7 @@ export default class Survey extends React.Component<RouteComponentProps<any>> {
     return (
       <div>
         Question list...
-        <Question question={this.getSelectedQuestion()} />
+        <Question question={this.getSelectedQuestion()} onAnswer={this.handleAnswer} />
 
         {hasPrev ? <button onClick={this.handleNavigation.bind(this, -1)}>Prev.</button> : ''}
         {hasNext ? <button onClick={this.handleNavigation.bind(this, 1)}>Next</button> : ''}
@@ -39,11 +53,32 @@ export default class Survey extends React.Component<RouteComponentProps<any>> {
   }
 
   private handleNavigation(to: 1 | -1): void {
-    const index = this.getCurrentIndex() + to;
-    this.props.history.push(`/survey/questions/${index}`);
+    if (!this.state.answerValue) {
+      alert('I know this alert is ugly! but please answer current question first :)');
+      return;
+    }
+
+    const toIndex = this.getCurrentIndex() + to;
+    const currentQuestion = this.getSelectedQuestion();
+    currentQuestion.answers = [{ text: this.state.answerValue }];
+    this.props.nextQuestion({ currentQuestion, toIndex, type: SurveyActionEnumType.NEXT });
+
+    this.setState({ answerValue: '' });
   }
 
   private handleResultClick(): void {
     // TODO navigate to results page
   }
+
+  private handleAnswer(answer: string): void {
+    this.setState({ answerValue: answer });
+  }
 }
+
+export default connect(
+  (state: AppState) => ({
+    survey: state.survey,
+  }),
+  // mapDispatchToProps,
+  { nextQuestion: surveyAction.nextQuestion },
+)(Survey);

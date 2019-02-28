@@ -1,5 +1,5 @@
-import {QuestionType} from '../../components/Question/QuestionType';
-import {Action} from "redux";
+import { QuestionType } from '../../components/Question/QuestionType';
+import { Action } from 'redux';
 
 export interface SurveyStateType {
   finished: boolean;

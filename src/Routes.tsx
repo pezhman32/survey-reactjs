@@ -1,12 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import Home from './routes/Home';
 import Survey from './routes/Survey';
+import createBrowserHistory from 'history/createBrowserHistory';
+
+export const history = createBrowserHistory();
 
 class Routes extends React.Component {
   public render() {
     return (
-      <Router>
+      <Router history={history}>
         <div>
           <Route exact={true} path="/" component={Home} />
           <Route path="/survey/questions/:index" component={Survey} />
