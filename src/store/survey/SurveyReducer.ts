@@ -1,6 +1,6 @@
-import { SurveyActionEnumType, SurveyActionType, SurveyStateType } from './types';
-import { QuestionType } from '../../components/Question/QuestionType';
-import { clearState, loadState, saveState } from '../index';
+import {SurveyActionEnumType, SurveyActionType, SurveyStateType} from './types';
+import {QuestionType} from '../../components/Question/QuestionType';
+import {clearState, loadState, saveState} from '../index';
 
 const DEFAULT_STATE: SurveyStateType = {
   answeredQuestions: [],
@@ -22,6 +22,7 @@ class SurveyReducer {
     switch (action.type) {
       case SurveyActionEnumType.NEXT:
       case SurveyActionEnumType.PREVIOUS:
+      case SurveyActionEnumType.SAVE_ANSWER:
         return saveState('survey', {
           ...state,
           answeredQuestions,

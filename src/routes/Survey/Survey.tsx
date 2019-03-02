@@ -14,13 +14,10 @@ interface SurveyProps extends RouteComponentProps<any> {
   survey: SurveyStateType;
   next: typeof surveyAction.next;
   prev: typeof surveyAction.prev;
+  saveAnswer: typeof surveyAction.saveAnswer;
 }
 
-interface SurveyState {
-  answerValue: string;
-}
-
-class Survey extends React.Component<SurveyProps, SurveyState> {
+class Survey extends React.Component<SurveyProps> {
 
   constructor(props: Readonly<SurveyProps>) {
     super(props);
@@ -28,15 +25,13 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
     this.handleAnswer = this.handleAnswer.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handlePrev = this.handlePrev.bind(this);
-
-    this.state = {
-      answerValue: this.getAnsweredValue(props),
-    };
   }
 
-  public componentWillReceiveProps(nextProps: Readonly<SurveyProps>, nextContext: any): void {
-    if (nextProps.survey.currentIndex !== this.props.survey.currentIndex) {
-      this.setState({ answerValue: this.getAnsweredValue(nextProps) });
+  public componentDidUpdate(prevProps: Readonly<SurveyProps>, prevState: Readonly<{}>, snapshot?: any): void {
+    // Properly handle redux state when using browser next/prev buttons
+    const indexParam = Number.parseInt(this.props.match.params['index']);
+    if (this.props.survey.currentIndex !== indexParam) {
+      this.handlePrev();
     }
   }
 
@@ -51,7 +46,7 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
 
         OK Let's answer couple of questions...
 
-        <Question question={this.getSelectedQuestion()} onAnswer={this.handleAnswer} answer={{ text: this.state.answerValue }} />
+        <Question question={this.getSelectedQuestion()} onAnswer={this.handleAnswer} answer={{ text: this.getAnsweredValue() }} />
         <ProgressBar progress={currentIndex - 1} max={QUESTION_LIST.length}/>
 
         <div className="Survey-navigation">
@@ -65,16 +60,15 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
   }
 
   private handleNext(): void {
-    if (!this.state.answerValue) {
+    const answeredQuestion = this.props.survey.answeredQuestions[this.props.survey.currentIndex - 1];
+    const currentQuestion = answeredQuestion ? answeredQuestion : this.getSelectedQuestion();
+
+    if (!currentQuestion.answer || !currentQuestion.answer.text) {
       alert('I know this alert is ugly! but please answer current question first :)');
       return;
     }
 
-    const currentQuestion = this.getSelectedQuestion();
-    currentQuestion.answer = { text: this.state.answerValue };
     this.props.next(currentQuestion, this.props.survey.currentIndex);
-
-    this.setState({ answerValue: '' });
   }
 
   private handlePrev(): void {
@@ -82,15 +76,16 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
   }
 
   private handleAnswer(answer: string): void {
-    this.setState({ answerValue: answer });
+    const currentQuestion = this.getSelectedQuestion();
+    this.props.saveAnswer(currentQuestion, this.props.survey.currentIndex, answer);
   }
 
   /**
    * Returns the answer for selected question, if there is any in store
    */
-  private getAnsweredValue(props: SurveyProps): string {
-    const answeredQuestions = props.survey.answeredQuestions;
-    const currentIndex = props.survey.currentIndex - 1;
+  private getAnsweredValue(): string {
+    const answeredQuestions = this.props.survey.answeredQuestions;
+    const currentIndex = this.props.survey.currentIndex - 1;
     const answer = (answeredQuestions[currentIndex] && answeredQuestions[currentIndex].answer) ?
       answeredQuestions[currentIndex].answer : { text: '' };
 
@@ -116,5 +111,6 @@ export default connect(
   {
     next: surveyAction.next,
     prev: surveyAction.prev,
+    saveAnswer: surveyAction.saveAnswer,
   },
 )(Survey);

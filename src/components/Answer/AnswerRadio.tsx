@@ -27,8 +27,8 @@ export default class AnswerRadio extends React.Component<AnswerRadioProps> {
     const value = this.props.answer ? this.props.answer.text : '';
 
     return (
-      <div className="Answer-radio">
-        <label key={`label-${index}`}>
+      <div key={`label-${index}`} className="Answer-radio">
+        <label>
           <input type="radio" name="radio-answer" value={answer} onChange={this.handleChange} checked={answer === value} />
           {answer}
         </label>

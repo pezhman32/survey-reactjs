@@ -17,6 +17,11 @@ class SurveyAction {
     return { currentQuestion, toIndex, type };
   }
 
+  public saveAnswer(currentQuestion: QuestionType, currentIndex: number, answer: string): SurveyActionType {
+    currentQuestion.answer = { text: answer };
+    return { currentQuestion, toIndex: currentIndex, type: SurveyActionEnumType.SAVE_ANSWER };
+  }
+
   public prev(currentIndex: number): SurveyActionType {
     const toIndex = currentIndex - 1;
     history.push(`/survey/questions/${toIndex}`);

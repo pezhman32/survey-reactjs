@@ -8,6 +8,7 @@ export interface SurveyStateType {
 }
 
 export enum SurveyActionEnumType {
+  SAVE_ANSWER,
   NEXT,
   PREVIOUS,
   FINISH,
