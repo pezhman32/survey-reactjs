@@ -4,9 +4,10 @@ import Question from '../components/Question/Question';
 import { QUESTION_LIST } from '../constants/QuestionList';
 import { QuestionType } from '../components/Question/QuestionType';
 import { AppState } from '../store';
-import { SurveyActionEnumType, SurveyStateType } from '../store/survey/types';
+import { SurveyStateType } from '../store/survey/types';
 import surveyAction from '../store/survey/SurveyAction';
 import { connect } from 'react-redux';
+import ProgressBar from '../components/ProgressBar/ProgressBar';
 
 interface SurveyProps extends RouteComponentProps<any> {
   survey: SurveyStateType;
@@ -28,11 +29,14 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
   }
 
   public render(): React.ReactNode {
-    const hasPrev = this.getCurrentIndex() !== 1;
-    const hasNext = this.getCurrentIndex() !== QUESTION_LIST.length;
+    const currentIndex = this.getCurrentIndex();
+    const hasPrev = currentIndex !== 1;
+    const hasNext = currentIndex !== QUESTION_LIST.length;
 
     return (
       <div>
+        <ProgressBar progress={currentIndex - 1} max={QUESTION_LIST.length}/>
+
         Question list...
         <Question question={this.getSelectedQuestion()} onAnswer={this.handleAnswer} />
 
