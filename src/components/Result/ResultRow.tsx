@@ -8,7 +8,7 @@ interface ResultProps {
 class ResultRow extends React.Component<ResultProps> {
 
   public render(): React.ReactNode {
-    const answer = this.props.question.answers ? this.props.question.answers[0] : { text: '{UNKNOWN}' };
+    const answer = this.props.question.answer ? this.props.question.answer : { text: '{UNKNOWN}' };
 
     return (
       <div>

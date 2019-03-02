@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import { RouteComponentProps } from 'react-router';
 import Question from '../components/Question/Question';
 import { QUESTION_LIST } from '../constants/QuestionList';
@@ -23,13 +23,24 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
 
   constructor(props: Readonly<SurveyProps>) {
     super(props);
+
     this.handleAnswer = this.handleAnswer.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handlePrev = this.handlePrev.bind(this);
+
+    this.state = {
+      answerValue: this.getAnsweredValue(props),
+    };
+  }
+
+  public componentWillReceiveProps(nextProps: Readonly<SurveyProps>, nextContext: any): void {
+    if (nextProps.survey.currentIndex !== this.props.survey.currentIndex) {
+      this.setState({ answerValue: this.getAnsweredValue(nextProps) });
+    }
   }
 
   public render(): React.ReactNode {
-    const currentIndex = this.getCurrentIndex();
+    const currentIndex = this.props.survey.currentIndex;
     const hasPrev = currentIndex !== 1;
     const hasNext = currentIndex !== QUESTION_LIST.length;
 
@@ -38,24 +49,13 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
         <ProgressBar progress={currentIndex - 1} max={QUESTION_LIST.length}/>
 
         Question list...
-        <Question question={this.getSelectedQuestion()} onAnswer={this.handleAnswer} />
+        <Question question={this.getSelectedQuestion()} onAnswer={this.handleAnswer} answer={{ text: this.state.answerValue }} />
 
         {hasPrev ? <button onClick={this.handlePrev}>Prev.</button> : ''}
         {hasNext ? <button onClick={this.handleNext}>Next</button> : ''}
         {!hasNext ? <button onClick={this.handleNext}>See overview</button> : ''}
       </div>
     );
-  }
-
-  private getCurrentIndex(): number {
-    return Number.parseInt(this.props.match.params['index']);
-  }
-
-  private getSelectedQuestion(): QuestionType {
-    const index: number = this.getCurrentIndex() - 1;
-    // TODO check if index is valid...
-
-    return QUESTION_LIST[index];
   }
 
   private handleNext(): void {
@@ -65,20 +65,40 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
     }
 
     const currentQuestion = this.getSelectedQuestion();
-    currentQuestion.answers = [{ text: this.state.answerValue }];
-    this.props.next(currentQuestion, this.getCurrentIndex());
+    currentQuestion.answer = { text: this.state.answerValue };
+    this.props.next(currentQuestion, this.props.survey.currentIndex);
 
     this.setState({ answerValue: '' });
   }
 
   private handlePrev(): void {
-    this.setState({ answerValue: '' });
-
-    this.props.prev(this.getCurrentIndex());
+    this.props.prev(this.props.survey.currentIndex);
   }
 
   private handleAnswer(answer: string): void {
     this.setState({ answerValue: answer });
+  }
+
+  /**
+   * Returns the answer for selected question, if there is any in store
+   */
+  private getAnsweredValue(props: SurveyProps): string {
+    const answeredQuestions = props.survey.answeredQuestions;
+    const currentIndex = props.survey.currentIndex - 1;
+    const answer = (answeredQuestions[currentIndex] && answeredQuestions[currentIndex].answer) ?
+      answeredQuestions[currentIndex].answer : { text: '' };
+
+    return answer ? answer.text : '';
+  }
+
+  /**
+   * Returns current selected question
+   */
+  private getSelectedQuestion(): QuestionType {
+    const index: number = this.props.survey.currentIndex - 1;
+    // TODO check if index is valid...
+
+    return QUESTION_LIST[index];
   }
 }
 

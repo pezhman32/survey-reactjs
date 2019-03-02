@@ -3,10 +3,12 @@ import { QuestionMode, QuestionType } from './QuestionType';
 import AnswerText from '../Answer/AnswerText';
 import AnswerDropdown from '../Answer/AnswerDropdown';
 import AnswerRadio from '../Answer/AnswerRadio';
+import { AnswerType } from '../Answer/AnswerType';
 
 interface QuestionProps {
   question: QuestionType;
   onAnswer: (v: string) => void;
+  answer?: AnswerType;
 }
 
 class Question extends React.Component<QuestionProps> {
@@ -15,19 +17,19 @@ class Question extends React.Component<QuestionProps> {
     return (
       <div>
         <div>Question: {this.props.question.title}</div>
-        {this.renderAnswer(this.props.question)}
+        {this.renderAnswer(this.props.question, this.props.answer)}
       </div>
     );
   }
 
-  private renderAnswer(question: QuestionType): React.ReactNode {
+  private renderAnswer(question: QuestionType, answer?: AnswerType): React.ReactNode {
     switch (question.mode) {
       case QuestionMode.TEXT:
-        return <AnswerText onChange={this.props.onAnswer}/>;
+        return <AnswerText answer={answer} onChange={this.props.onAnswer}/>;
       case QuestionMode.SINGLE_DROP_DOWN:
-        return <AnswerDropdown options={question.options || []} onChange={this.props.onAnswer}/>;
+        return <AnswerDropdown answer={answer} options={question.options || []} onChange={this.props.onAnswer}/>;
       case QuestionMode.SINGLE_RADIO:
-        return <AnswerRadio options={question.options || []} onChange={this.props.onAnswer}/>;
+        return <AnswerRadio answer={answer} options={question.options || []} onChange={this.props.onAnswer}/>;
       default:
         return <span>ERROR!</span>;
     }

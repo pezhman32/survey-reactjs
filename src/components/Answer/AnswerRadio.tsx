@@ -1,8 +1,10 @@
 import React from 'react';
+import { AnswerType } from './AnswerType';
 
 interface AnswerRadioProps {
   options: string[];
   onChange: (v: string) => void;
+  answer?: AnswerType;
 }
 
 export default class AnswerRadio extends React.Component<AnswerRadioProps> {
@@ -10,21 +12,24 @@ export default class AnswerRadio extends React.Component<AnswerRadioProps> {
   constructor(props: Readonly<AnswerRadioProps>) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.renderRadio = this.renderRadio.bind(this);
   }
 
   public render(): React.ReactNode {
     return (
       <div>
-        {this.props.options.map(this.renderRadio.bind(this))}
+        {this.props.options.map(this.renderRadio)}
       </div>
     );
   }
 
   private renderRadio(answer: string, index: number): React.ReactNode {
+    const value = this.props.answer ? this.props.answer.text : '';
+
     return (
       <label key={`label-${index}`}>
         {answer}
-        <input type="radio" name="radio-answer" value={answer} onChange={this.handleChange}/>
+        <input type="radio" name="radio-answer" value={answer} onChange={this.handleChange} checked={answer === value} />
       </label>
     );
   }

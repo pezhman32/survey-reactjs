@@ -1,8 +1,10 @@
 import React  from 'react';
+import { AnswerType } from './AnswerType';
 
 interface AnswerDropdownProps {
   options: string[];
   onChange: (v: string) => void;
+  answer?: AnswerType;
 }
 
 export default class AnswerDropdown extends React.Component<AnswerDropdownProps> {
@@ -13,11 +15,14 @@ export default class AnswerDropdown extends React.Component<AnswerDropdownProps>
   }
 
   public render(): React.ReactNode {
+    const options = this.props.options;
+    const value = this.props.answer ? this.props.answer.text : '';
+
     return (
       <div>
-        <select onChange={this.handleChange}>
+        <select onChange={this.handleChange} defaultValue={value}>
           <option key={0} value={''}>Please select...</option>
-          {this.props.options.map((v, i) => <option key={i} value={v}>{v}</option>)}
+          {options.map((v, i) => <option key={i} value={v}>{v}</option>)}
         </select>
       </div>
     );
