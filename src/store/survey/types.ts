@@ -11,6 +11,7 @@ export enum SurveyActionEnumType {
   NEXT,
   PREVIOUS,
   FINISH,
+  RESET,
 }
 
 export interface SurveyActionType extends Action {

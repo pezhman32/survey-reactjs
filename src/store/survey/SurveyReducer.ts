@@ -29,14 +29,14 @@ class SurveyReducer {
           finished: false,
         });
       case SurveyActionEnumType.FINISH:
-        // reset saved state
-        clearState('survey');
-
-        return {
+        return saveState('survey', {
           ...state,
           answeredQuestions,
           finished: true,
-        };
+        });
+      case SurveyActionEnumType.RESET:
+        clearState('survey');
+        return saveState('survey', DEFAULT_STATE);
     }
 
     return saveState('survey', { ...state });

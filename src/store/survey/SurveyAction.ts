@@ -23,6 +23,12 @@ class SurveyAction {
 
     return { toIndex, type: SurveyActionEnumType.PREVIOUS };
   }
+
+  public reset(): SurveyActionType {
+    history.push('/');
+
+    return { toIndex: 1, type: SurveyActionEnumType.RESET };
+  }
 }
 
 const surveyAction = new SurveyAction();

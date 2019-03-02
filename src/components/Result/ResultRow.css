@@ -1,0 +1,10 @@
+.ResultRow {
+	margin: 10px 0;
+	border: 1px dashed var(--border-color);
+	padding: 20px 10px;
+	border-radius: 5px;
+}
+
+.ResultRow-goodbye {
+	margin: 20px 0 10px;
+}
