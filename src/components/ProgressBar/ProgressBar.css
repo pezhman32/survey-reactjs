@@ -1,13 +1,19 @@
 .ProgressBar-container {
-  display: block;
-  width: 100%;
-  height: 15px;
-  border: 1px solid #CCC;
-  border-radius: 5px;
+	display: block;
+	width: 100%;
+	height: 15px;
+	margin: 40px 0 0;
+	border: 1px solid #CCC;
+	border-radius: 10px;
+	background: url('https://www.toptal.com/designers/subtlepatterns/patterns/circuit.png') repeat-x;
 }
 
 .ProgressBar-progress {
-  display: block;
-  height: 100%;
-  background: #2669fb;
+	display: block;
+	border-radius: 10px;
+	height: 100%;
+	background: #2669fb;
+
+	-webkit-transition: width 2s;
+	transition: width 2s;
 }

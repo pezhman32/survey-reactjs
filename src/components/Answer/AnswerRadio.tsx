@@ -27,10 +27,12 @@ export default class AnswerRadio extends React.Component<AnswerRadioProps> {
     const value = this.props.answer ? this.props.answer.text : '';
 
     return (
-      <label key={`label-${index}`}>
-        {answer}
-        <input type="radio" name="radio-answer" value={answer} onChange={this.handleChange} checked={answer === value} />
-      </label>
+      <div className="Answer-radio">
+        <label key={`label-${index}`}>
+          <input type="radio" name="radio-answer" value={answer} onChange={this.handleChange} checked={answer === value} />
+          {answer}
+        </label>
+      </div>
     );
   }
 

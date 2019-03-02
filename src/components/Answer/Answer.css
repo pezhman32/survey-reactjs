@@ -1,0 +1,19 @@
+.Answer-dropdown {
+	width: 100%;
+	height: 50px;
+}
+
+.Answer-textarea {
+	width: 99%;
+	height: 50px;
+	border-radius: 5px;
+	border-color: var(--border-color);
+}
+
+.Answer-radio {
+	clear: both;
+	margin-bottom: 10px;
+}
+.Answer-radio input {
+	margin-right: 10px;
+}

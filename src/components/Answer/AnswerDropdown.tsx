@@ -1,5 +1,6 @@
 import React  from 'react';
 import { AnswerType } from './AnswerType';
+import './Answer.css';
 
 interface AnswerDropdownProps {
   options: string[];
@@ -20,7 +21,7 @@ export default class AnswerDropdown extends React.Component<AnswerDropdownProps>
 
     return (
       <div>
-        <select onChange={this.handleChange} defaultValue={value}>
+        <select onChange={this.handleChange} defaultValue={value} className="Answer-dropdown">
           <option key={0} value={''}>Please select...</option>
           {options.map((v, i) => <option key={i} value={v}>{v}</option>)}
         </select>

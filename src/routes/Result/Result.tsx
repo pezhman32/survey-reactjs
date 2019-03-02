@@ -1,8 +1,8 @@
 import React from 'react';
-import { QuestionType } from '../components/Question/QuestionType';
-import { AppState } from '../store';
+import { QuestionType } from '../../components/Question/QuestionType';
+import { AppState } from '../../store';
 import { connect } from 'react-redux';
-import ResultRow from '../components/Result/ResultRow';
+import ResultRow from '../../components/Result/ResultRow';
 
 interface ResultProps {
   answeredQuestions: QuestionType[];

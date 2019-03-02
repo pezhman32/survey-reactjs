@@ -4,6 +4,7 @@ import AnswerText from '../Answer/AnswerText';
 import AnswerDropdown from '../Answer/AnswerDropdown';
 import AnswerRadio from '../Answer/AnswerRadio';
 import { AnswerType } from '../Answer/AnswerType';
+import './Question.css';
 
 interface QuestionProps {
   question: QuestionType;
@@ -15,8 +16,10 @@ class Question extends React.Component<QuestionProps> {
 
   public render(): React.ReactNode {
     return (
-      <div>
-        <div>Question: {this.props.question.title}</div>
+      <div className="Question">
+        <p>
+          <b>{this.props.question.title}</b>
+        </p>
         {this.renderAnswer(this.props.question, this.props.answer)}
       </div>
     );

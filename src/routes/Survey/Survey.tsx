@@ -1,13 +1,14 @@
 import React  from 'react';
 import { RouteComponentProps } from 'react-router';
-import Question from '../components/Question/Question';
-import { QUESTION_LIST } from '../constants/QuestionList';
-import { QuestionType } from '../components/Question/QuestionType';
-import { AppState } from '../store';
-import { SurveyStateType } from '../store/survey/types';
-import surveyAction from '../store/survey/SurveyAction';
+import Question from '../../components/Question/Question';
+import { QUESTION_LIST } from '../../constants/QuestionList';
+import { QuestionType } from '../../components/Question/QuestionType';
+import { AppState } from '../../store';
+import { SurveyStateType } from '../../store/survey/types';
+import surveyAction from '../../store/survey/SurveyAction';
 import { connect } from 'react-redux';
-import ProgressBar from '../components/ProgressBar/ProgressBar';
+import ProgressBar from '../../components/ProgressBar/ProgressBar';
+import './Survey.css';
 
 interface SurveyProps extends RouteComponentProps<any> {
   survey: SurveyStateType;
@@ -46,14 +47,19 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
 
     return (
       <div>
+        <h1>{'{Awesome Survey}'}</h1>
+
+        OK Let's answer couple of questions...
+
+        <Question question={this.getSelectedQuestion()} onAnswer={this.handleAnswer} answer={{ text: this.state.answerValue }} />
         <ProgressBar progress={currentIndex - 1} max={QUESTION_LIST.length}/>
 
-        Question list...
-        <Question question={this.getSelectedQuestion()} onAnswer={this.handleAnswer} answer={{ text: this.state.answerValue }} />
-
-        {hasPrev ? <button onClick={this.handlePrev}>Prev.</button> : ''}
-        {hasNext ? <button onClick={this.handleNext}>Next</button> : ''}
-        {!hasNext ? <button onClick={this.handleNext}>See overview</button> : ''}
+        <div className="Survey-navigation">
+          {hasPrev ? <button onClick={this.handlePrev}>Prev.</button> : ''}
+          {hasNext ? <button onClick={this.handleNext}>Next</button> : ''}
+          {!hasNext ? <button onClick={this.handleNext}>See overview</button> : ''}
+        </div>
+        <div className="clearfix"/>
       </div>
     );
   }

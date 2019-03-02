@@ -1,0 +1,23 @@
+.Survey-navigation {
+	margin-top: 10px;
+}
+
+.Survey-navigation button {
+	border: 1px solid var(--border-color);
+	border-radius: 5px;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.Survey-navigation button:hover {
+	background-color: #edffb6 !important;
+}
+
+.Survey-navigation button:first-child {
+	float: left;
+}
+
+.Survey-navigation button:last-child {
+	background-color: #d7ffd7;
+	float: right;
+}

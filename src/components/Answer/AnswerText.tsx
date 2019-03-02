@@ -1,5 +1,6 @@
 import React from 'react';
 import { AnswerType } from './AnswerType';
+import './Answer.css';
 
 interface AnswerTextProps {
   onChange: (v: string) => void;
@@ -18,7 +19,7 @@ export default class AnswerText extends React.Component<AnswerTextProps> {
 
     return (
       <div>
-        <textarea onBlur={this.handleBlur} defaultValue={value}/>
+        <textarea onBlur={this.handleBlur} defaultValue={value} className="Answer-textarea"/>
       </div>
     );
   }

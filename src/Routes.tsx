@@ -1,9 +1,9 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
-import Home from './routes/Home';
-import Survey from './routes/Survey';
+import Home from './routes/Home/Home';
+import Survey from './routes/Survey/Survey';
 import createBrowserHistory from 'history/createBrowserHistory';
-import Result from "./routes/Result";
+import Result from "./routes/Result/Result";
 
 export const history = createBrowserHistory();
 
