@@ -14,7 +14,7 @@ export enum SurveyActionEnumType {
 }
 
 export interface SurveyActionType extends Action {
-  currentQuestion: QuestionType;
+  currentQuestion?: QuestionType;
   toIndex: number;
   type: SurveyActionEnumType;
 }

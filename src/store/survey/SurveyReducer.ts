@@ -12,7 +12,9 @@ class SurveyReducer {
   public setState(state = INITIAL_STATE, action: SurveyActionType): SurveyStateType {
     // Set the answer to right position in the array
     const answeredQuestions: QuestionType[] = Object.assign([], state.answeredQuestions);
-    answeredQuestions[state.currentIndex - 1] = action.currentQuestion; // Questions start with 1, array index starts with 0
+    if (action.currentQuestion) {
+      answeredQuestions[state.currentIndex - 1] = action.currentQuestion; // Questions start with 1, array index starts with 0
+    }
 
     switch (action.type) {
       case SurveyActionEnumType.NEXT:
@@ -26,6 +28,7 @@ class SurveyReducer {
       case SurveyActionEnumType.FINISH:
         return {
           ...state,
+          answeredQuestions,
           finished: true,
         };
     }

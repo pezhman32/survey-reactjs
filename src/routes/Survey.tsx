@@ -10,7 +10,8 @@ import { connect } from 'react-redux';
 
 interface SurveyProps extends RouteComponentProps<any> {
   survey: SurveyStateType;
-  nextQuestion: typeof surveyAction.nextQuestion;
+  next: typeof surveyAction.next;
+  prev: typeof surveyAction.prev;
 }
 
 interface SurveyState {
@@ -21,8 +22,9 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
 
   constructor(props: Readonly<SurveyProps>) {
     super(props);
-    this.handleResultClick = this.handleResultClick.bind(this);
     this.handleAnswer = this.handleAnswer.bind(this);
+    this.handleNext = this.handleNext.bind(this);
+    this.handlePrev = this.handlePrev.bind(this);
   }
 
   public render(): React.ReactNode {
@@ -34,9 +36,9 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
         Question list...
         <Question question={this.getSelectedQuestion()} onAnswer={this.handleAnswer} />
 
-        {hasPrev ? <button onClick={this.handleNavigation.bind(this, -1)}>Prev.</button> : ''}
-        {hasNext ? <button onClick={this.handleNavigation.bind(this, 1)}>Next</button> : ''}
-        {!hasNext ? <button onClick={this.handleResultClick}>See overview</button> : ''}
+        {hasPrev ? <button onClick={this.handlePrev}>Prev.</button> : ''}
+        {hasNext ? <button onClick={this.handleNext}>Next</button> : ''}
+        {!hasNext ? <button onClick={this.handleNext}>See overview</button> : ''}
       </div>
     );
   }
@@ -52,22 +54,23 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
     return QUESTION_LIST[index];
   }
 
-  private handleNavigation(to: 1 | -1): void {
+  private handleNext(): void {
     if (!this.state.answerValue) {
       alert('I know this alert is ugly! but please answer current question first :)');
       return;
     }
 
-    const toIndex = this.getCurrentIndex() + to;
     const currentQuestion = this.getSelectedQuestion();
     currentQuestion.answers = [{ text: this.state.answerValue }];
-    this.props.nextQuestion({ currentQuestion, toIndex, type: SurveyActionEnumType.NEXT });
+    this.props.next(currentQuestion, this.getCurrentIndex());
 
     this.setState({ answerValue: '' });
   }
 
-  private handleResultClick(): void {
-    // TODO navigate to results page
+  private handlePrev(): void {
+    this.setState({ answerValue: '' });
+
+    this.props.prev(this.getCurrentIndex());
   }
 
   private handleAnswer(answer: string): void {
@@ -80,5 +83,8 @@ export default connect(
     survey: state.survey,
   }),
   // mapDispatchToProps,
-  { nextQuestion: surveyAction.nextQuestion },
+  {
+    next: surveyAction.next,
+    prev: surveyAction.prev,
+  },
 )(Survey);

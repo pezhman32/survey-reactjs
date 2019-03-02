@@ -3,6 +3,7 @@ import { Router, Route } from 'react-router-dom';
 import Home from './routes/Home';
 import Survey from './routes/Survey';
 import createBrowserHistory from 'history/createBrowserHistory';
+import Result from "./routes/Result";
 
 export const history = createBrowserHistory();
 
@@ -13,6 +14,7 @@ class Routes extends React.Component {
         <div>
           <Route exact={true} path="/" component={Home} />
           <Route path="/survey/questions/:index" component={Survey} />
+          <Route path="/survey/result" component={Result} />
         </div>
       </Router>
     );

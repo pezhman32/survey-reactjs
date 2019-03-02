@@ -15,7 +15,8 @@ function configureStore() {
 
   const store = createStore(
     rootReducer,
-    composeWithDevTools(middleWareEnhancer),
+    composeWithDevTools(),
+    // composeWithDevTools(middleWareEnhancer),
   );
 
   return store;
