@@ -1,11 +1,14 @@
 import { SurveyActionEnumType, SurveyActionType, SurveyStateType } from './types';
 import { QuestionType } from '../../components/Question/QuestionType';
+import { clearState, loadState, saveState } from '../index';
 
-const INITIAL_STATE: SurveyStateType = {
+const DEFAULT_STATE: SurveyStateType = {
   answeredQuestions: [],
   currentIndex: 1,
   finished: false,
 };
+
+const INITIAL_STATE: SurveyStateType = loadState('survey', DEFAULT_STATE);
 
 class SurveyReducer {
 
@@ -19,13 +22,16 @@ class SurveyReducer {
     switch (action.type) {
       case SurveyActionEnumType.NEXT:
       case SurveyActionEnumType.PREVIOUS:
-        return {
+        return saveState('survey', {
           ...state,
           answeredQuestions,
           currentIndex: action.toIndex,
           finished: false,
-        };
+        });
       case SurveyActionEnumType.FINISH:
+        // reset saved state
+        clearState('survey');
+
         return {
           ...state,
           answeredQuestions,
@@ -33,7 +39,7 @@ class SurveyReducer {
         };
     }
 
-    return { ...state };
+    return saveState('survey', { ...state });
   }
 }
 
