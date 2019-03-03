@@ -1,9 +1,9 @@
 .App {
   max-width: 500px;
   width: 80%;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--borderColor);
   border-radius: 5px;
   background-color: #FFF;
-  padding: 20px;
+  padding: var(--spacingDouble);
   margin: 5% auto;
 }

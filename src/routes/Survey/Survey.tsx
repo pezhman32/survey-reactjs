@@ -9,6 +9,7 @@ import surveyAction from '../../store/survey/SurveyAction';
 import { connect } from 'react-redux';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import './Survey.css';
+import Logo from '../../components/Logo/Logo';
 
 interface SurveyProps extends RouteComponentProps<any> {
   survey: SurveyStateType;
@@ -42,7 +43,9 @@ class Survey extends React.Component<SurveyProps> {
 
     return (
       <div>
-        <h1>{'{Awesome Survey}'}</h1>
+        <h1>
+          <Logo />
+        </h1>
 
         OK Let's answer couple of questions...
 

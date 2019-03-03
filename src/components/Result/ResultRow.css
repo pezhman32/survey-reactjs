@@ -1,10 +1,10 @@
 .ResultRow {
-	margin: 10px 0;
-	border: 1px dashed var(--border-color);
-	padding: 20px 10px;
+	margin: var(--spacing) 0;
+	border: 1px dashed var(--borderColor);
+	padding: var(--spacingDouble) var(--spacing);
 	border-radius: 5px;
 }
 
 .ResultRow-goodbye {
-	margin: 20px 0 10px;
+	margin: var(--spacingDouble) 0 var(--spacing);
 }

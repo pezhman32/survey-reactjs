@@ -4,6 +4,7 @@ import { AppState } from '../../store';
 import { connect } from 'react-redux';
 import ResultRow from '../../components/Result/ResultRow';
 import surveyAction from '../../store/survey/SurveyAction';
+import Logo from '../../components/Logo/Logo';
 
 interface ResultProps {
   answeredQuestions: QuestionType[];
@@ -22,7 +23,10 @@ class Result extends React.Component<ResultProps> {
 
     return (
       <div>
-        <h1>Result Overview - {'{Awesome Survey}'}</h1>
+        <h1>
+          Result Overview -&nbsp;
+          <Logo />
+        </h1>
         {questions.map((q, index) => <ResultRow key={index} number={index + 1} question={q} />)}
 
         <div className="ResultRow-goodbye">

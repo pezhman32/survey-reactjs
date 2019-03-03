@@ -1,11 +1,11 @@
 .Survey-navigation {
-	margin-top: 10px;
+	margin-top: var(--spacing);
 }
 
 .Survey-navigation button {
-	border: 1px solid var(--border-color);
+	border: 1px solid var(--borderColor);
 	border-radius: 5px;
-	padding: 10px;
+	padding: var(--spacing);
 	cursor: pointer;
 }
 
