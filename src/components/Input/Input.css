@@ -1,0 +1,25 @@
+.Dropdown {
+	width: 100%;
+	height: 50px;
+	font-size: var(--inputFontSize);
+}
+
+.Text, .Textarea {
+	width: calc(100% - var(--spacing) * 2);
+	border-radius: 5px;
+	border: 1px solid var(--borderColor);
+	padding: var(--spacing);
+	font-size: var(--inputFontSize);
+}
+
+.Textarea {
+	height: 50px;
+}
+
+.Radio {
+	clear: both;
+	margin-bottom: var(--spacing);
+}
+.Radio input {
+	margin-right: var(--spacing);
+}

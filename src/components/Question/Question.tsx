@@ -1,9 +1,10 @@
 import React from 'react';
 import { QuestionMode, QuestionType } from './QuestionType';
-import AnswerText from '../Answer/AnswerText';
-import AnswerDropdown from '../Answer/AnswerDropdown';
-import AnswerRadio from '../Answer/AnswerRadio';
-import { AnswerType } from '../Answer/AnswerType';
+import Textarea from '../Input/Textarea';
+import Text from '../Input/Text';
+import Dropdown from '../Input/Dropdown';
+import Radio from '../Input/Radio';
+import { AnswerType } from './AnswerType';
 import './Question.css';
 
 interface QuestionProps {
@@ -26,13 +27,17 @@ class Question extends React.Component<QuestionProps> {
   }
 
   private renderAnswer(question: QuestionType, answer?: AnswerType): React.ReactNode {
+    const defaultValue = answer ? answer.text : '';
+
     switch (question.mode) {
       case QuestionMode.TEXT:
-        return <AnswerText answer={answer} onChange={this.props.onAnswer}/>;
+        return <Text defaultValue={defaultValue} onChange={this.props.onAnswer}/>;
+      case QuestionMode.TEXTAREA:
+        return <Textarea defaultValue={defaultValue} onChange={this.props.onAnswer}/>;
       case QuestionMode.SINGLE_DROP_DOWN:
-        return <AnswerDropdown answer={answer} options={question.options || []} onChange={this.props.onAnswer}/>;
+        return <Dropdown defaultValue={defaultValue} options={question.options || []} onChange={this.props.onAnswer}/>;
       case QuestionMode.SINGLE_RADIO:
-        return <AnswerRadio answer={answer} options={question.options || []} onChange={this.props.onAnswer}/>;
+        return <Radio defaultValue={defaultValue} options={question.options || []} onChange={this.props.onAnswer}/>;
       default:
         return <span>ERROR!</span>;
     }

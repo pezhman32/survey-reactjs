@@ -1,27 +1,26 @@
 import React  from 'react';
-import { AnswerType } from './AnswerType';
-import './Answer.css';
+import './Input.css';
 
-interface AnswerDropdownProps {
+interface DropdownProps {
   options: string[];
   onChange: (v: string) => void;
-  answer?: AnswerType;
+  defaultValue?: string;
 }
 
-export default class AnswerDropdown extends React.Component<AnswerDropdownProps> {
+export default class Dropdown extends React.Component<DropdownProps> {
 
-  constructor(props: Readonly<AnswerDropdownProps>) {
+  constructor(props: Readonly<DropdownProps>) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
   }
 
   public render(): React.ReactNode {
     const options = this.props.options;
-    const value = this.props.answer ? this.props.answer.text : '';
+    const value = this.props.defaultValue  || '';
 
     return (
       <div>
-        <select onChange={this.handleChange} defaultValue={value} className="Answer-dropdown">
+        <select onChange={this.handleChange} defaultValue={value} className="Dropdown">
           <option key={0} value={''}>Please select...</option>
           {options.map((v, i) => <option key={i} value={v}>{v}</option>)}
         </select>
