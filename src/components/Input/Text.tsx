@@ -18,7 +18,11 @@ export default class Text extends React.Component<TextProps> {
 
     return (
       <div>
-        <input type="text" onBlur={this.handleBlur} defaultValue={value} className="Text"/>
+        <input
+          type="text"
+          onBlur={this.handleBlur}
+          defaultValue={value}
+          className="Text" />
       </div>
     );
   }

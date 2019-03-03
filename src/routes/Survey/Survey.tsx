@@ -49,8 +49,14 @@ class Survey extends React.Component<SurveyProps> {
 
         OK Let's answer couple of questions...
 
-        <Question question={this.getSelectedQuestion()} onAnswer={this.handleAnswer} answer={{ text: this.getAnsweredValue() }} />
-        <ProgressBar progress={currentIndex - 1} max={QUESTION_LIST.length}/>
+        <Question
+          question={this.getSelectedQuestion()}
+          onAnswer={this.handleAnswer}
+          answer={{ text: this.getAnsweredValue() }} />
+
+        <ProgressBar
+          progress={currentIndex - 1}
+          max={QUESTION_LIST.length} />
 
         <div className="Survey-navigation">
           {hasPrev ? <button onClick={this.handlePrev}>Prev.</button> : ''}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
-import Logo from "../../components/Logo/Logo";
+import Logo from '../../components/Logo/Logo';
 
 class Home extends React.Component<RouteComponentProps> {
 
@@ -15,8 +15,14 @@ class Home extends React.Component<RouteComponentProps> {
 
         Are you ready?
         <br />
-        <Link to={`${this.props.match.url}survey/questions/1`}>Hell Yeah!</Link> /&nbsp;
-        <a href="#" onClick={Home.handleNope}>Nope!</a>
+        <Link to={`${this.props.match.url}survey/questions/1`}>
+          Hell Yeah!
+        </Link> /&nbsp;
+        <a
+          href="#"
+          onClick={Home.handleNope}>
+          Nope!
+        </a>
       </div>
     );
   }

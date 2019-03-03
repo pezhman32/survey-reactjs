@@ -27,12 +27,17 @@ class Result extends React.Component<ResultProps> {
           Result Overview -&nbsp;
           <Logo />
         </h1>
+
         {questions.map((q, index) => <ResultRow key={index} number={index + 1} question={q} />)}
 
         <div className="ResultRow-goodbye">
           Hope you enjoyed this fake survey :)
           <br />
-          <a href="#" onClick={this.handleHomePageClick}>Back to home page</a>
+          <a
+            href="#"
+            onClick={this.handleHomePageClick}>
+            Back to home page
+          </a>
         </div>
       </div>
     );

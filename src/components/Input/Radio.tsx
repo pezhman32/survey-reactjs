@@ -28,7 +28,12 @@ export default class Radio extends React.Component<RadioProps> {
     return (
       <div key={`label-${index}`} className="Radio">
         <label>
-          <input type="radio" name="radio" value={defaultValue} onChange={this.handleChange} checked={defaultValue === value} />
+          <input
+            type="radio"
+            name="radio"
+            value={defaultValue}
+            onChange={this.handleChange}
+            checked={defaultValue === value} />
           {defaultValue}
         </label>
       </div>

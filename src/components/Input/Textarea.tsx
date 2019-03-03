@@ -18,7 +18,10 @@ export default class Textarea extends React.Component<TextareaProps> {
 
     return (
       <div>
-        <textarea onBlur={this.handleBlur} defaultValue={value} className="Textarea"/>
+        <textarea
+          onBlur={this.handleBlur}
+          defaultValue={value}
+          className="Textarea" />
       </div>
     );
   }

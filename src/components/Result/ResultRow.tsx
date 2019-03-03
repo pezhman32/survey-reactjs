@@ -14,8 +14,14 @@ class ResultRow extends React.Component<ResultProps> {
 
     return (
       <div className="ResultRow">
-        <div>#{this.props.number}. {this.props.question.title}</div>
-        <div><b>{answer.text}</b></div>
+        <div>
+          #{this.props.number}. {this.props.question.title}
+        </div>
+        <div>
+          <b>
+            {answer.text}
+          </b>
+        </div>
       </div>
     );
   }

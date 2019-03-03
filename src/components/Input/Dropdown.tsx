@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import './Input.css';
 
 interface DropdownProps {
@@ -16,12 +16,17 @@ export default class Dropdown extends React.Component<DropdownProps> {
 
   public render(): React.ReactNode {
     const options = this.props.options;
-    const value = this.props.defaultValue  || '';
+    const value = this.props.defaultValue || '';
 
     return (
       <div>
-        <select onChange={this.handleChange} defaultValue={value} className="Dropdown">
+        <select
+          onChange={this.handleChange}
+          defaultValue={value}
+          className="Dropdown">
+
           <option key={0} value={''}>Please select...</option>
+
           {options.map((v, i) => <option key={i} value={v}>{v}</option>)}
         </select>
       </div>
