@@ -8,6 +8,11 @@ class SurveyAction {
   public next(currentQuestion: QuestionType, currentIndex: number): SurveyActionType {
     const toIndex = currentIndex + 1;
     const type = toIndex > QUESTION_LIST.length ? SurveyActionEnumType.FINISH : SurveyActionEnumType.NEXT;
+
+    if (toIndex > QUESTION_LIST.length && type !== SurveyActionEnumType.FINISH) {
+      return this.reset();
+    }
+
     if (type === SurveyActionEnumType.FINISH) {
       history.push('/survey/result');
     } else {
@@ -18,12 +23,18 @@ class SurveyAction {
   }
 
   public saveAnswer(currentQuestion: QuestionType, currentIndex: number, answer: string): SurveyActionType {
-    currentQuestion.answer = { text: answer };
-    return { currentQuestion, toIndex: currentIndex, type: SurveyActionEnumType.SAVE_ANSWER };
+    const answeredQuestion = Object.assign({}, currentQuestion);
+    answeredQuestion.answer = { text: answer };
+
+    return { currentQuestion: answeredQuestion, toIndex: currentIndex, type: SurveyActionEnumType.SAVE_ANSWER };
   }
 
   public prev(currentIndex: number): SurveyActionType {
     const toIndex = currentIndex - 1;
+    if (toIndex <= 0) {
+      return this.reset();
+    }
+
     history.push(`/survey/questions/${toIndex}`);
 
     return { toIndex, type: SurveyActionEnumType.PREVIOUS };
